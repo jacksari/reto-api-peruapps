@@ -18,6 +18,7 @@
     ],
     "rules": {
         "no-any": 0,
-        "no-explicit-any": 0
+        "no-explicit-any": 0,
+        "no-invalid-regexp": 0
     }
 }

@@ -15,6 +15,8 @@ const validarJWT = (req: Request, res: Response, next: NextFunction): void => {
         const tk = jwt.verify(token, environment.JWT_SECRET);
         
         const tk1 = tk as JwtPayload;
+        //console.log(tk1.payload.uid);
+        
         res.locals.uid = tk1.payload.uid;
         next();
     } catch (error) {

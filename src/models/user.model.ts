@@ -35,6 +35,15 @@ const UserSchema = new Schema<User>({
   slug: {
     type: String
   },
+  place: {
+    type: String
+  },
+  phone: {
+    type: String
+  },
+  birthday: {
+    type : Date
+  },
   created_at: {
     type: Date,
     default: new Date(),

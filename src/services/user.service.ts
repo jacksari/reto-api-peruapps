@@ -14,6 +14,9 @@ const createUser = async (user: User): Promise<User> => {
     password: hashSync(user.password as string, genSaltSync(saltRounds)),
     img: `https://ui-avatars.com/api/?name=${user.name}+${user.lastname}`,
     slug: `${slug(user.name)}-${slug(user.lastname)}-${uid(6)}`,
+    birthday: user.birthday,
+    place: user.place,
+    phone: user.phone
   });
 }
 

@@ -13,7 +13,7 @@
 
 ## Documntación API - Postman
 
-[link](https://documenter.getpostman.com/view/10645967/UUxxg81H)
+[link](https://documenter.getpostman.com/view/10645967/UUy396gE)
 
 ## Iniciar
 

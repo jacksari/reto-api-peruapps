@@ -6,12 +6,20 @@ import { User } from '../data/user.data';
 
 const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
+    const userExists = await userService.getUserByEmail(req.body.email);
+    
+    if(userExists){
+      return ErrorHandler(req, res, 404, 'Ya existe un usuario con ese correo');
+    }
     const user = await userService.createUser(req.body);
     res.status(200).json({
       ok: true,
       user
     })
   } catch (error) {
+    console.log(error);
+    
+    
     ErrorHandler(req, res, 500, 'Error al crear usuario');
   }
 }
@@ -75,18 +83,16 @@ const updateUserById = async (req: Request, res: Response): Promise<void> => {
     if(!user){
       return ErrorHandler(req, res, 404, 'No existe un usuario con ese id');
     }
+    // Bloquear updates de otros usuarios
+    if(res.locals.uid !== user.email){
+      return ErrorHandler(req, res, 404, 'El token es de otro usuario');
+    } 
 
       const { password, google, email, ...content } = req.body;
       const campos: User = content;
       
-      if( user.email !== email ){
-          const existeEmail = await userService.getUserByEmail(email);
-          if( existeEmail ) {
-              return  ErrorHandler(req, res, 400, 'Ya existe un usuario con ese correo')
-          }
-      }
       campos.updated_at = new Date();
-      campos.email = email;
+      campos.email = user.email;
       //console.log('123',campos);
     
       const newUser = await userService.updateUserById(campos,user._id  as string);
