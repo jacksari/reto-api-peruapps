@@ -4,15 +4,24 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import morgan from 'morgan';
+import fs from 'fs';
 import './config/db';
+import http from 'http';
+import https from 'https';
 
 // Rutas
 import routeProject from './routes/project.routes';
 import routeUser from './routes/user.routes';
 import routeAuth from './routes/auth.routes';
+import environment from './config/environments/environment';
 
 //const socketio = require('socket.io');
 //const Sockets  = require('./sockets');
+
+const httpsServerOptions = {
+    key: fs.readFileSync(environment.KEY_PATH),
+    cert: fs.readFileSync(environment.CERT_PATH)
+}
 
 export default class Server {
 
@@ -69,9 +78,16 @@ export default class Server {
 
         this.routes();    
 
+        // Servidor http
+        const serverHTTP = http.createServer(this.app);
+        serverHTTP.listen(this.port, '54.157.71.165')
+
+        const serverHTTPS = https.createServer(httpsServerOptions, this.app)
+        serverHTTPS.listen(443, '54.157.71.165')
+
         // Inicializar Server
-        this.app.listen( this.port, () => {
-            console.log('Server corriendo en puerto:', this.port );
-        });
+        //this.app.listen( this.port, () => {
+        //    console.log('Server corriendo en puerto:', this.port );
+        //});
     }
 }

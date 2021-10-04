@@ -4,6 +4,6 @@ export default {
         MONGO_DB: process.env.MONGO_DB || ''
     },
     JWT_SECRET: process.env.JWT_SECRET || 'ASD',
-    USER_EMAIL: process.env.USER_EMAIL,
-    USER_PASSWORD: process.env.USER_PASSWORD
+    KEY_PATH: process.env.KEY_PATH || '',
+    CERT_PATH: process.env.CERT_PATH || ''
 }
