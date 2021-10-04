@@ -19,8 +19,8 @@ import environment from './config/environments/environment';
 //const Sockets  = require('./sockets');
 
 const httpsServerOptions = {
-    key: fs.readFileSync(environment.KEY_PATH),
-    cert: fs.readFileSync(environment.CERT_PATH)
+    key: fs.readFileSync("/etc/letsencrypt/live/api.jacksari.com/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/api.jacksari.com/fullchain.pem")
 }
 
 export default class Server {
